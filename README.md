@@ -1,6 +1,8 @@
 ## Convenient functions for mapping orthologous genes using ENSEMBL BioMART
 
-The package wraps around biomaRt package.
+The package wraps around biomaRt package to provide a fast way of ortholog mapping.
+
+[![DOI](https://zenodo.org/badge/240325005.svg)](https://zenodo.org/badge/latestdoi/240325005)
 
 ## Installation
 
