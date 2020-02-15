@@ -9,7 +9,7 @@ def setup_package():
       name = 'pyorthomap',
       version = '0.1',
       description = 'pyorthomap: Map orthologous genes using ENSEMBL BioMart and pybiomart package',
-      url = 'https://github.com/vitkl/pyorthomap',
+      url = 'https://github.com/vitkl/orthologsBioMART',
       author = 'Vitalii Kleshchevnikov',
       author_email = 'vitalii.kleshchevnikov@sanger.ac.uk',
       license = 'Apache License, Version 2.0',
@@ -22,5 +22,5 @@ def setup_package():
 if __name__ == '__main__':
   if sys.version_info < (2,7):
     sys.exit('Sorry, Python < 2.7 is not supported')
-    
+
   setup_package()
