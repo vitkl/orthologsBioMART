@@ -1,6 +1,6 @@
 ## Convenient functions for mapping orthologous genes using ENSEMBL BioMART
 
-The package wraps around biomaRt package to provide a fast way of ortholog mapping.
+The package wraps around biomaRt package in R and pybiomart package in python to provide a concise way of ortholog mapping.
 
 [![DOI](https://zenodo.org/badge/240325005.svg)](https://zenodo.org/badge/latestdoi/240325005)
 
