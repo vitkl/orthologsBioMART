@@ -63,17 +63,18 @@
 <div id="convenient-functions-for-mapping-orthologous-genes-using-ensembl-biomart" class="section level2">
 <h2 class="hasAnchor">
 <a href="#convenient-functions-for-mapping-orthologous-genes-using-ensembl-biomart" class="anchor"></a>Convenient functions for mapping orthologous genes using ENSEMBL BioMART</h2>
-<p>The package wraps around biomaRt package.</p>
+<p>The package wraps around biomaRt package to provide a fast way of ortholog mapping.</p>
+<p><a href="https://zenodo.org/badge/latestdoi/240325005"><img src="https://zenodo.org/badge/240325005.svg" alt="DOI"></a></p>
 </div>
-<div id="installation" class="section level2">
+<div id="installation-r" class="section level2">
 <h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<a href="#installation-r" class="anchor"></a>Installation R</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"BiocManager"</span>)
 BiocManager<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"vitkl/orthologsBioMART"</span>), <span class="dt">dependencies=</span>T)</code></pre></div>
 </div>
-<div id="usage" class="section level2">
+<div id="usage-r" class="section level2">
 <h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
+<a href="#usage-r" class="anchor"></a>Usage R</h2>
 <p>Mapping between any species:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">findOrthologs =<span class="st"> </span><span class="cf">function</span>(<span class="dt">datasets_FROM_TO =</span> <span class="kw">loadBIOMARTdatasets</span>(<span class="dt">from =</span> <span class="st">"hsapiens_gene_ensembl"</span>,
                                                                 <span class="dt">to =</span> <span class="st">"mmusculus_gene_ensembl"</span>),
@@ -102,6 +103,48 @@ attr
 
 <span class="co"># find the desired column name</span>
 attr<span class="op">$</span>from_attributes[<span class="kw"><a href="https://rdrr.io/r/base/grep.html">grep</a></span>(<span class="st">"Mouse gene stable ID"</span>, attr, <span class="dt">ignore.case =</span> T),]</code></pre></div>
+</div>
+<div id="installation-python" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation-python" class="anchor"></a>Installation python</h2>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">pip install git<span class="op">+</span>https:<span class="op">//</span>github.com<span class="op">/</span>vitkl<span class="op">/</span>orthologsBioMART.git</code></pre></div>
+</div>
+<div id="usage-python" class="section level2">
+<h2 class="hasAnchor">
+<a href="#usage-python" class="anchor"></a>Usage python</h2>
+<p>Mapping between any species:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># find correct dataset name for your species</span>
+<span class="im">from</span> pybiomart <span class="im">import</span> Server
+server <span class="op">=</span> Server(host<span class="op">=</span><span class="st">'http://www.ensembl.org'</span>)
+server.marts[<span class="st">'ENSEMBL_MART_ENSEMBL'</span>].list_datasets()
+
+<span class="im">from</span> <span class="im">import</span> FindOrthologs 
+<span class="co"># then create the find orthogues object using correct datasets and attributes</span>
+<span class="co"># use help(FindOrthologs)</span>
+hs2mm <span class="op">=</span> FindOrthologs(
+          host <span class="op">=</span> <span class="st">'http://www.ensembl.org'</span>,
+          mart <span class="op">=</span> <span class="st">'ENSEMBL_MART_ENSEMBL'</span>,
+          from_dataset <span class="op">=</span> <span class="st">'hsapiens_gene_ensembl'</span>,
+          to_dataset <span class="op">=</span> <span class="st">'mmusculus_gene_ensembl'</span>,
+          from_filters <span class="op">=</span> <span class="st">'hgnc_symbol'</span>,
+          from_values <span class="op">=</span> [<span class="st">'TP53'</span>, <span class="st">'TERT'</span>],
+          to_attributes <span class="op">=</span> <span class="st">'external_gene_name'</span>,
+          to_homolog_attribute <span class="op">=</span> <span class="st">'mmusculus_homolog_ensembl_gene'</span>,
+          from_gene_id_name <span class="op">=</span> <span class="st">'human_ensembl_gene_id'</span>,
+          to_gene_id_name <span class="op">=</span> <span class="st">'mouse_ensembl_gene_id'</span>
+    )
+    
+hs2mm.<span class="bu">map</span>()</code></pre></div>
+<p>Mapping mouse to human and vice-versa:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">findOrthologsMmHs(from_filters <span class="op">=</span> <span class="st">'link_ensembl_gene_id'</span>,
+                  from_values <span class="op">=</span> [<span class="st">'ENSMUSG00000059552'</span>, <span class="st">'ENSMUSG00000021611'</span>]).<span class="bu">map</span>()
+findOrthologsMmHs(from_filters <span class="op">=</span> <span class="st">'external_gene_name'</span>,
+                  from_values <span class="op">=</span> [<span class="st">'Trp53'</span>, <span class="st">'Tert'</span>]).<span class="bu">map</span>()
+
+findOrthologsHsMm(from_filters <span class="op">=</span> <span class="st">'link_ensembl_gene_id'</span>,
+                  from_values <span class="op">=</span> [<span class="st">'ENSG00000141510'</span>, <span class="st">'ENSG00000164362'</span>]).<span class="bu">map</span>()
+findOrthologsHsMm(from_filters <span class="op">=</span> <span class="st">'hgnc_symbol'</span>,
+                  from_values <span class="op">=</span> [<span class="st">'TP53'</span>, <span class="st">'TERT'</span>]).<span class="bu">map</span>()</code></pre></div>
 </div>
 
   </div>

@@ -4,14 +4,14 @@ The package wraps around biomaRt package to provide a fast way of ortholog mappi
 
 [![DOI](https://zenodo.org/badge/240325005.svg)](https://zenodo.org/badge/latestdoi/240325005)
 
-## Installation
+## Installation R
 
 ```r
 install.packages("BiocManager")
 BiocManager::install(c("vitkl/orthologsBioMART"), dependencies=T)
 ```
 
-## Usage
+## Usage R
 
 Mapping between any species:   
 ```r
@@ -50,3 +50,51 @@ attr
 attr$from_attributes[grep("Mouse gene stable ID", attr, ignore.case = T),]
 ```
 
+## Installation python
+
+```python
+pip install git+https://github.com/vitkl/orthologsBioMART.git
+```
+
+## Usage python
+
+Mapping between any species: 
+
+```python
+# find correct dataset name for your species
+from pybiomart import Server
+server = Server(host='http://www.ensembl.org')
+server.marts['ENSEMBL_MART_ENSEMBL'].list_datasets()
+
+from import FindOrthologs 
+# then create the find orthogues object using correct datasets and attributes
+# use help(FindOrthologs)
+hs2mm = FindOrthologs(
+          host = 'http://www.ensembl.org',
+          mart = 'ENSEMBL_MART_ENSEMBL',
+          from_dataset = 'hsapiens_gene_ensembl',
+          to_dataset = 'mmusculus_gene_ensembl',
+          from_filters = 'hgnc_symbol',
+          from_values = ['TP53', 'TERT'],
+          to_attributes = 'external_gene_name',
+          to_homolog_attribute = 'mmusculus_homolog_ensembl_gene',
+          from_gene_id_name = 'human_ensembl_gene_id',
+          to_gene_id_name = 'mouse_ensembl_gene_id'
+    )
+    
+hs2mm.map()
+```
+
+Mapping mouse to human and vice-versa:
+
+```python
+findOrthologsMmHs(from_filters = 'link_ensembl_gene_id',
+                  from_values = ['ENSMUSG00000059552', 'ENSMUSG00000021611']).map()
+findOrthologsMmHs(from_filters = 'external_gene_name',
+                  from_values = ['Trp53', 'Tert']).map()
+
+findOrthologsHsMm(from_filters = 'link_ensembl_gene_id',
+                  from_values = ['ENSG00000141510', 'ENSG00000164362']).map()
+findOrthologsHsMm(from_filters = 'hgnc_symbol',
+                  from_values = ['TP53', 'TERT']).map()
+```

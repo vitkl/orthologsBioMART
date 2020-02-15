@@ -5,7 +5,7 @@
 ##' @description findOrthologs(): map orthologous genes using ENSEMBL BioMART (\link[biomaRt]{getBM}) from one species to another species. This function retrieves ids by 500 at a time to decrease the load on ENSEMBL servers.
 ##' @param datasets_FROM_TO environment containing "Mart" objects produced by \code{loadBIOMARTdatasets()}. It is convenient to specify datasets here rather than pre-loading. Full list of datasets in ENSEMBL BioMART: listDatasets("ensembl")
 ##' @param from_filters Filters (one or more) that should be used in the query in the "from" species database. A possible list of filters can be retrieved using \code{attributesFiltersFromTo(datasets_FROM_TO = loadBIOMARTdatasets())}.
-##' @param from_values Values of the filter, e.g. vector of affy IDs in the "from" species database. If multiple filters are specified then the argument should be a list of vectors of which the position of each vector corresponds to the position of the filters in the filters argument. Please limit the number of values to less than 500.
+##' @param from_values Values of the filter, e.g. vector of affy IDs in the "from" species database. If multiple filters are specified then the argument should be a list of vectors of which the position of each vector corresponds to the position of the filters in the filters argument.
 ##' @param to_attributes Attributes you want to retrieve from the "to" species database. A possible list of attributes can be retrieved using the function \code{attributesFiltersFromTo(datasets_FROM_TO = loadBIOMARTdatasets())}.
 ##' @param to_homolog_attribute Attribute that returns homolog gene id in the "from" database
 ##' @param from_gene_id_name name of the column containing the ENSEMBL gene ids of "from" species
