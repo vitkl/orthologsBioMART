@@ -16,6 +16,7 @@ def chunks(l, n):
 
 class FindOrthologs():
     r"""Map orthologous genes using ENSEMBL BioMart and pybiomart package.
+    
     :param host: BioMart host server link
     :param mart: BioMart database version, e.g. 'ENSEMBL_MART_ENSEMBL'
     :param from_dataset: source BioMart dataset
@@ -23,18 +24,24 @@ class FindOrthologs():
             from pybiomart import Server
             server = Server(host='http://www.ensembl.org')
             server.marts['ENSEMBL_MART_ENSEMBL'].list_datasets()
+            
     :param from_filters: Filters that should be used in the query in the source/"from" species database. To see the full list:
             from pybiomart import Server
             server = Server(host='http://www.ensembl.org')
             server.marts['ENSEMBL_MART_ENSEMBL'].datasets['hsapiens_gene_ensembl'].list_filters()
-            Some attributes can also be used as a filter (in which case from_attributes is ignored):
+            # Some attributes can also be used as a filter (in which case from_attributes is ignored):
             server.marts['ENSEMBL_MART_ENSEMBL'].datasets['hsapiens_gene_ensembl'].list_attributes()
+            
     :param from_values: Values of the filter, e.g. list of gene names or ENSEMBL IDs
     :param from_attributes: Which additional attributes to collect from the source/"from" species database.
+    
     :param to_attributes: Attributes you want to retrieve from the "to" species database. To see the full list:
             from pybiomart import Server
             server = Server(host='http://www.ensembl.org')
             server.marts['ENSEMBL_MART_ENSEMBL'].datasets['hsapiens_gene_ensembl'].list_attributes()
+            # For example, to find names of GO term columns:
+            attr = server.marts['ENSEMBL_MART_ENSEMBL'].datasets['hsapiens_gene_ensembl'].list_attributes()
+            attr.loc[['GO' in i for i in attr['display_name']]]
     :param to_homolog_attribute: Attribute that corresponds to the homolog gene id in the "from" database
     :param from_gene_id_name: name of the column to assign to the ENSEMBL gene ids of "from" species
     :param to_gene_id_name: name of the column to assign the ENSEMBL gene ids of "to" species
