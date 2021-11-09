@@ -66,7 +66,7 @@ from pybiomart import Server
 server = Server(host='http://www.ensembl.org')
 server.marts['ENSEMBL_MART_ENSEMBL'].list_datasets()
 
-from import FindOrthologs 
+from pyorthomap import FindOrthologs 
 # then create the find orthogues object using correct datasets and attributes
 # use help(FindOrthologs)
 hs2mm = FindOrthologs(
