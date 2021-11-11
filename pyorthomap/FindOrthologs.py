@@ -50,17 +50,17 @@ class FindOrthologs():
 
     def __init__(
           self,
-          host = 'http://www.ensembl.org',
-          mart = 'ENSEMBL_MART_ENSEMBL',
-          from_dataset = 'hsapiens_gene_ensembl',
-          to_dataset = 'mmusculus_gene_ensembl',
-          from_filters = 'hgnc_symbol',
-          from_attributes = ['hgnc_symbol'],
-          from_values = ['TP53', 'TERT'],
-          to_attributes = ['external_gene_name'],
-          to_homolog_attribute = 'mmusculus_homolog_ensembl_gene',
-          from_gene_id_name = 'human_ensembl_gene_id',
-          to_gene_id_name = 'mouse_ensembl_gene_id',
+          host: str = 'http://www.ensembl.org',
+          mart: str = 'ENSEMBL_MART_ENSEMBL',
+          from_dataset: str = 'hsapiens_gene_ensembl',
+          to_dataset: str = 'mmusculus_gene_ensembl',
+          from_filters: str = 'hgnc_symbol',
+          from_attributes: list = ['hgnc_symbol'],
+          from_values: list = ['TP53', 'TERT'],
+          to_attributes: list = ['external_gene_name'],
+          to_homolog_attribute: str = 'mmusculus_homolog_ensembl_gene',
+          from_gene_id_name: str = 'human_ensembl_gene_id',
+          to_gene_id_name: str = 'mouse_ensembl_gene_id',
           chunk_size: int = 300
     ):
 
@@ -135,7 +135,7 @@ class findOrthologsHsMm(FindOrthologs):
 
     def __init__(
           self,
-          from_filters = 'hgnc_symbol',
+          from_filters: str = 'hgnc_symbol',
           from_attributes: list = ['hgnc_symbol'],
           from_values: list = ['TP53', 'TERT', 'EPCAM'],
           to_attributes: list = ['external_gene_name']
@@ -159,7 +159,7 @@ class findOrthologsMmHs(FindOrthologs):
 
     def __init__(
           self,
-          from_filters = 'link_ensembl_gene_id',
+          from_filters: str = 'link_ensembl_gene_id',
           from_attributes: list = ['external_gene_name'],
           from_values: list = ['ENSMUSG00000059552', 'ENSMUSG00000021611'],
           to_attributes: list = ['hgnc_symbol']
